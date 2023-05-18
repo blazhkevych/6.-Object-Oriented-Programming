@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>ExtendedDate Example</title>
+</head>
+
+<body>
+	<h1>ExtendedDate Example</h1>
+
+	<script>
+		class ExtendedDate extends Date {
+			// Method for displaying the date (day and month) as text
+			displayDate() {
+				const months = [
+					"January", "February", "March", "April", "May", "June", "July",
+					"August", "September", "October", "November", "December"
+				];
+
+				const day = this.getDate();
+				const month = this.getMonth();
+
+				return `${months[month]} ${day}`;
+			}
+
+			// Method to check if it's a future or past date
+			isFutureDate() {
+				const currentDate = new Date();
+				return this > currentDate;
+			}
+
+			// Method for checking whether it's a leap year or not
+			isLeapYear() {
+				const year = this.getFullYear();
+				return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+			}
+
+			// Method that returns the next date
+			getNextDate() {
+				const nextDay = new Date(this);
+				nextDay.setDate(this.getDate() + 1);
+				return nextDay;
+			}
+		}
+
+		// Create an object of the ExtendedDate class
+		const myDate = new ExtendedDate();
+
+		// Prompt the user to enter a date
+		const userInput = prompt("Enter a date (dd.mm.yyyy):");
+
+		// Extract day, month, and year from the user input
+		const [day, month, year] = userInput.split('.');
+
+		// Create a new date object with the entered values
+		const enteredDate = new Date(`${year}-${month}-${day}`);
+
+		if (!isNaN(enteredDate)) {
+			myDate.setTime(enteredDate.getTime());
+
+			// Display the results on the page
+			document.write("<p>Entered Date: " + myDate.displayDate() + "</p>");
+			document.write("<p>Is Future Date? " + myDate.isFutureDate() + "</p>");
+			document.write("<p>Is Leap Year? " + myDate.isLeapYear() + "</p>");
+			document.write("<p>Next Date: " + myDate.getNextDate().toDateString() + "</p>");
+		} else {
+			// Display an error message if the entered date is invalid
+			document.write("<p>Invalid date format. Please try again.</p>");
+		}
+	</script>
+</body>
+
+</html>
